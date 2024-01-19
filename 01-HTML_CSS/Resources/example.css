@@ -1,0 +1,13 @@
+body {
+	background: #999999;
+}
+
+p {
+	font-size: 1em;
+	font-family: Georgia,serif;
+	line-height: 1.5em;
+	color: #4e4e4e;
+	text-rendering: “optimizeLegibility”;
+	text-shadow:0 0 1px transparent;
+	text-align: justify
+}

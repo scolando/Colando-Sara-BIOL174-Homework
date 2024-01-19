@@ -1,0 +1,35 @@
+html {
+	background: #999999;
+	padding: 30px;
+}
+body {
+	background: #ffffff;
+	width: 80%;
+	margin: auto;
+	padding: 30px;
+}
+
+p , ul, ol, li, table, td, th {
+	font-size: 1em;
+	font-family: Georgia,serif;
+	line-height: 1.5em;
+	color: #4e4e4e;
+	text-align: justify
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Georgia,serif;
+	color: #4e4e4e;
+}
+
+.other {
+	color: blue
+}
+
+#first {
+	color: green
+}
+
+img {
+    width: 100%
+}
