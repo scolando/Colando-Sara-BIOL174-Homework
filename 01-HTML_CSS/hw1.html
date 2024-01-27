@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> BIOL174 HW1</title>
+        <link type="text/css" rel="stylesheet" href="hw1.css"/>
+    </head>
+
+    <body>
+        <h1>A Primer on ChIP-Seq Normalization</h1>
+        <h2 id = "subheader">BIOL174 Homework 1</h2>
+        <h3>Introduction</h3>
+        <p> Within the last two decades, high throughput sequencing has become one of the most popular methods for data collection within genomics, epigenomics, and transcriptomics studies. 
+            One of the most popular methods of high throughput sequencing used within peer-reviewed scientific research is Chromatin Immunoprecipitation followed by high throughput sequencing, which is commonly referred to as ChIP-Seq. 
+            ChIP-Seq aims to characterize the binding behavior of a protein-of-interest (e.g., a transcription factor) within the genome. 
+        </p>
+        <p>
+            In ChIP-Seq experiments, <em>peaks</em> (i.e., genomic regions enriched with DNA-protein binding) are generally the experimental unit. This is because ChIP-Seq experiments are usually conducted to determine which genomic regions that are enriched with DNA-protein binding, is <em>differentially bound</em>.
+        </p>
+        <p class="definition">
+            <b>Differentially Bound: </b>A peak is considered <em>differentially bound</em> across conditions if there is a difference in the amount of DNA-protein binding (per cell) under the different conditions on average.
+        </p>
+
+        <p>
+            The amount of DNA-protein binding in a given region is approximated through the <em>reads</em> (i.e., sequenced transcripts) that are associated with that genomic region. A higher read count being taken to indicate a larger amount of DNA-protein binding.
+        </p>
+
+        <p>
+            However, as ChIP-Seq data is collected experimentally, there will always be a difference in the read counts (and thus the observed DNA-protein binding) across conditions. In turn, statistical models are built that make assumptions about the underlying structure of the true DNA-protein binding and allow us to perform hypothesis tests in order to detect <em>statistically significant</em> differences in the observed DNA-protein binding across conditions.
+             The process of hypothesis testing to assess differences in DNA-protein binding is commonly referred to as <em>differential binding analysis</em>.
+        </p>
+        <p class="definition">
+            <b>Differential Binding Analysis: </b> Differential binding analysis uses hypothesis testing to identify which peaks have signficantly different DNA-protein binding across conditions/samples.
+        </p>
+       <p> 
+        An important precursor of differential binding analysis in between-sample normalization, which aims to reduce differences in read counts between samples (i.e., conditions) that are due to experimental variability rather than <em>true </em> biological differences.
+        Between-sample normalization works by producing a scalar that is then applied the read count of a sample for a given peak region. That is for sample <em>j</em> and peak <em>p</em>, we have that:
+       </p>
+       <math display="block">
+        <mrow>
+            <msub>
+               <mi>(Normalized Reads)</mi> 
+               <mn>pj</mn>
+            </msub>
+            <mi> = </mi>
+            <mfrac>
+            <msub>
+                <mi>(Raw Reads)</mi>
+                <mn>pj</mn>
+            </msub>
+            <msub>    
+                <mi>(Scaling Factor)</mi>
+                <mn>j</mn>
+            </msub>
+            </mfrac>
+        </mrow>
+       </math>
+
+       <p>
+        However, to create this scaling factor, normalization methods must make assumptions about structure of the data. Three key assumptions are: 
+       </p>
+       <ol>
+            <li><em>Symmetric differential binding:</em> there is the same number of regions
+                that are up-regulated and down-regulated across the experimental conditions.
+            <li> <em>Constant DNA-protein binding:</em> there is the same amount of DNAprotein
+                binding per cell in each experimental condition.</li>
+            <li> <em>Constant background binding:</em> the number of rogue reads is the same
+                across the two experimental conditions.</li>
+        </ol>
+
+        <h3> Example </h3>
+
+        <p>To see the effects of violating a normalization method's assumptions on differential binding analysis consider the following example which using <em>total count normalization (or normalization by library size).</em>
+            Total count normalization just divides the number of reads in a sample for a given a peak by the total number of reads summed up over all peaks in that sample.
+        </p>
+
+        <p><em>Imagine that we have the following DNA-protein binding in Peaks 1, 2, and 3 across experimental conditions (i.e., samples) A and B. </em></p>
+       
+        <table>
+            <thead>
+             <tr>
+                <th>Peak</th>
+                <th>Cond A</th>
+                <th>Cond B</th>
+             </tr>
+            </thead>
+            <tfoot>
+             <tr>
+                <td>3</td>
+                <td>2</td>
+                <td>4</td>
+             </tr>
+            </tfoot>
+            <tbody>
+             <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>2</td>
+             </tr>
+             <tr>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+             </tr>
+            </tbody>
+           </table>
+        <p>Here, we see that Peak 1 and 2 are <em>not</em> differentially bound. Meanwhile, Peak 3 <em>is</em> differentially bound. We can see this using the Table as well as Figure 1 (a).</p>
+
+        <figure>
+            <img src="oneOverExpressedGene.png" alt="Figure 1" />
+            <figcaption><b>Figure 1: </b>example for why correct between-sample normalization is important.</figcaption>
+        </figure>
+
+        <p>Since Peak 3 in Figure 1 is differentially bound, the read counts for Peaks 1 and 2 in Condition B are lower than they are in Condition A, even though the two peaks have the same amount of <em>true</em> DNA-protein binding. 
+        As a result, when we normalize between-samples using total count, this difference in reads coming from one peak being differentially bound (i.e., up-regulated in in Condition B) is not corrected. In turn, it looks like Peak 1 and 2 are both differentially bound/up-regulated in Condition A, even though that is not the case.
+        </p>
+
+        <p>As we see in Figure 1 (d), correct normalization would make the normalized read count in Peak 1 and 2 the same across Condition A and B, leaving only Peak 3 as the only peak that would be classified as differentially bound. 
+           Therefore, it is important for us to understand the assumptions made by between-sample normalization methods, like total count normalization, to control the false discovery rate/make accurate biological conclusions from our differential binding analysis.
+        </p>
+
+        <h3>Video Introduction</h3>
+        <p>For more information on ChIP-Seq data collection and between-sample normalization, you can watch the video embedded below: </p>
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/nkWGmaYRues?si=geUDp3WHOFCJ-8R1mute=0" title="YouTube video player" " id = "video"></iframe>
+    
+
+        <h2>Reference Links</h2>
+         <ul>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/32240773/"> Methods for ChIP-seq analysis: A practical workflow and advanced applications</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/26000844/"> High-throughput sequencing technologies</a></li>
+            <li><a href="https://www.frontiersin.org/articles/10.3389/fgene.2015.00169/full"> Identifying differential transcription factor binding in ChIP-seq</a></li>
+        </ul>
+
+
+
+
+    </body>
+
+
+
+
+
+</html>
+
