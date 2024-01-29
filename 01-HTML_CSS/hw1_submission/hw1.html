@@ -31,9 +31,9 @@
         <p class="definition">
             <b>Differential Binding Analysis: </b> Differential binding analysis uses hypothesis testing to identify which peaks have signficantly different DNA-protein binding across conditions/samples.
         </p>
-       <p> 
-        An important precursor of differential binding analysis in between-sample normalization, which aims to reduce differences in read counts between samples (i.e., conditions) that are due to experimental variability rather than <em>true </em> biological differences.
-        Between-sample normalization works by producing a scalar that is then applied the read count of a sample for a given peak region. That is for sample <em>j</em> and peak <em>p</em>, we have that:
+        <p> 
+            An important precursor of differential binding analysis in between-sample normalization, which aims to reduce differences in read counts between samples (i.e., conditions) that are due to experimental variability rather than <em>true </em> biological differences.
+            Between-sample normalization works by producing a scalar that is then applied the read count of a sample for a given peak region. That is for sample <em>j</em> and peak <em>p</em>, we have that:
        </p>
        <math display="block">
         <mrow>
@@ -41,7 +41,7 @@
                <mi>(Normalized Reads)</mi> 
                <mn>pj</mn>
             </msub>
-            <mi> = </mi>
+                <mi> = </mi>
             <mfrac>
             <msub>
                 <mi>(Raw Reads)</mi>
@@ -60,7 +60,7 @@
        </p>
        <ol>
             <li><em>Symmetric differential binding:</em> there is the same number of regions
-                that are up-regulated and down-regulated across the experimental conditions.
+                that are up-regulated and down-regulated across the experimental conditions.</li>
             <li> <em>Constant DNA-protein binding:</em> there is the same amount of DNAprotein
                 binding per cell in each experimental condition.</li>
             <li> <em>Constant background binding:</em> the number of rogue reads is the same
@@ -69,7 +69,8 @@
 
         <h3> Example </h3>
 
-        <p>To see the effects of violating a normalization method's assumptions on differential binding analysis consider the following example which using <em>total count normalization (or normalization by library size).</em>
+        <p>
+            To see the effects of violating a normalization method's assumptions on differential binding analysis consider the following example which using <em>total count normalization (or normalization by library size).</em>
             Total count normalization just divides the number of reads in a sample for a given a peak by the total number of reads summed up over all peaks in that sample.
         </p>
 
@@ -103,19 +104,23 @@
              </tr>
             </tbody>
            </table>
-        <p>Here, we see that Peak 1 and 2 are <em>not</em> differentially bound. Meanwhile, Peak 3 <em>is</em> differentially bound. We can see this using the Table as well as Figure 1 (a).</p>
+        <p>
+            Here, we see that Peak 1 and 2 are <em>not</em> differentially bound. Meanwhile, Peak 3 <em>is</em> differentially bound. We can see this using the Table as well as Figure 1 (a).
+        </p>
 
         <figure>
             <img src="oneOverExpressedGene.png" alt="Figure 1" />
             <figcaption><b>Figure 1: </b>example for why correct between-sample normalization is important.</figcaption>
         </figure>
 
-        <p>Since Peak 3 in Figure 1 is differentially bound, the read counts for Peaks 1 and 2 in Condition B are lower than they are in Condition A, even though the two peaks have the same amount of <em>true</em> DNA-protein binding. 
-        As a result, when we normalize between-samples using total count, this difference in reads coming from one peak being differentially bound (i.e., up-regulated in in Condition B) is not corrected. In turn, it looks like Peak 1 and 2 are both differentially bound/up-regulated in Condition A, even though that is not the case.
+        <p>
+            Since Peak 3 in Figure 1 is differentially bound, the read counts for Peaks 1 and 2 in Condition B are lower than they are in Condition A, even though the two peaks have the same amount of <em>true</em> DNA-protein binding. 
+            As a result, when we normalize between-samples using total count, this difference in reads coming from one peak being differentially bound (i.e., up-regulated in in Condition B) is not corrected. In turn, it looks like Peak 1 and 2 are both differentially bound/up-regulated in Condition A, even though that is not the case.
         </p>
 
-        <p>As we see in Figure 1 (d), correct normalization would make the normalized read count in Peak 1 and 2 the same across Condition A and B, leaving only Peak 3 as the only peak that would be classified as differentially bound. 
-           Therefore, it is important for us to understand the assumptions made by between-sample normalization methods, like total count normalization, to control the false discovery rate/make accurate biological conclusions from our differential binding analysis.
+        <p>
+            As we see in Figure 1 (d), correct normalization would make the normalized read count in Peak 1 and 2 the same across Condition A and B, leaving only Peak 3 as the only peak that would be classified as differentially bound. 
+            Therefore, it is important for us to understand the assumptions made by between-sample normalization methods, like total count normalization, to control the false discovery rate/make accurate biological conclusions from our differential binding analysis.
         </p>
 
         <h3>Video Introduction</h3>
