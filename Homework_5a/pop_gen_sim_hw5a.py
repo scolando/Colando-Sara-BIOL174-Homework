@@ -57,7 +57,7 @@ def allele_simulation(initA, fAA, fAa, faa, pop, gen,sim):
     fig.update_xaxes(title_text="Allele A Frequency", range=[0, 1.1], showline = True, linecolor = 'black', linewidth = 1, row=1, col=1)
     
     fig.update_layout(plot_bgcolor = 'white',
-                  title_text="Simulation Outputs",
+                  title_text="Simulation Outputs:",
                   height=450, 
                   width=1000)
     return fig
@@ -65,13 +65,14 @@ def allele_simulation(initA, fAA, fAa, faa, pop, gen,sim):
 left_column, right_column = st.columns([1,2])
 
 with left_column:
-    sim = st.slider('Number of Simulations:',min_value=1,max_value=100,step=1)
-    fAA = st.slider('Fitness of AA:',min_value=0.,max_value=1.,step=0.05,value=1.)
-    fAa = st.slider('Fitness of Aa:',min_value=0.,max_value=1.,step=0.05,value=1.)
-    faa = st.slider('Fitness of aa:',min_value=0.,max_value=1.,step=0.05,value=1.)
-    pop = st.select_slider('Population Size:',[10,50,100,500,1000])
-    gen = st.slider("Number of Generations:",min_value=100,max_value=1000,step=100)
-    initA = st.slider("Starting frequency of A:", min_value=0.01,max_value=0.99,step=0.01, value=0.5)
+    st.header("User Inputs")
+    sim = st.slider('Number of Simulations:',min_value=1,max_value=500,step=1,key='sim')
+    fAA = st.slider('Fitness of AA:',min_value=0.,max_value=1.,step=0.05,value=1.,key = 'fAA')
+    fAa = st.slider('Fitness of Aa:',min_value=0.,max_value=1.,step=0.05,value=1., key = 'fAa')
+    faa = st.slider('Fitness of aa:',min_value=0.,max_value=1.,step=0.05,value=1.,key = 'faa')
+    pop = st.slider('Population Size:', min_value = 1, max_value = 5000, step = 1, value = 1000, key = 'pop')
+    gen = st.slider("Number of Generations:",min_value=1,max_value=1000,step = 1, value = 100, key = 'gens')
+    initA = st.slider("Starting frequency of A:", min_value=0.0,max_value=1.0,step=0.01, value=0.5, key = 'initA')
 
 with right_column:
     st.header("Pop Gen Simulation & Histogram")
